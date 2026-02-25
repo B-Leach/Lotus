@@ -1,0 +1,77 @@
+.container {
+    position: relative;
+    display: inline;
+}
+
+.cardName {
+    color: var(--accent-hover);
+    cursor: help;
+    border-bottom: 1px dotted var(--accent);
+    transition: color 0.2s;
+}
+
+.cardName:hover {
+    color: var(--accent);
+}
+
+.tooltip {
+    position: fixed;
+    z-index: 1000;
+    pointer-events: auto;
+}
+
+.cardImage {
+    display: block;
+    width: 250px;
+    height: auto;
+    border-radius: 12px;
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.6),
+        0 0 20px var(--accent-glow);
+    transition: transform 0.2s;
+}
+
+.tooltip:hover .cardImage {
+    transform: scale(1.05);
+}
+
+.loading,
+.notFound {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    white-space: nowrap;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.loading {
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%,
+    100% {
+        opacity: 0.6;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+/* Mobile: show tooltip centered at bottom */
+@media (max-width: 768px) {
+    .tooltip {
+        top: auto !important;
+        bottom: 120px !important;
+        left: 50% !important;
+        right: auto !important;
+        transform: translateX(-50%);
+    }
+
+    .cardImage {
+        width: 200px;
+    }
+}

@@ -1,0 +1,201 @@
+@font-face {
+    font-family: "Beleren";
+    src: url("/fonts/Beleren2016-Bold.ttf") format("truetype");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Plantin";
+    src: url("/fonts/Plantin Roman.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* MTG Card Back Theme - based on actual card back analysis
+
+       Visual hierarchy (outer to inner):
+       1. Black border (#000000) - frames everything
+       2. Dark brown frame (#301800) - substantial border
+       3. Rich brown (#784818) - dominant color, ~50% of card
+       4. Amber highlights (#906030) - warm accents
+       5. Blue-teal (#486878) - decorative text elements
+
+       The card has subtle texture throughout.
+    */
+
+    /* Backgrounds - rich brown dominates, dark frame surrounds */
+    --bg-primary: #784818;
+    --bg-secondary: #5a3810;
+    --bg-tertiary: #301800;
+
+    /* Text - warm cream on dark backgrounds */
+    --text-primary: #f0e6d0;
+    --text-secondary: #c0a878;
+
+    /* Accent - blue-teal from card decorations (brightened) */
+    --accent: #5a8a9c;
+    --accent-hover: #70a0b4;
+    --accent-glow: rgba(90, 138, 156, 0.45);
+
+    /* UI elements */
+    --user-bubble: #906030;
+    --bot-bubble: #5a3810;
+    --border-color: #000000;
+    --input-bg: #5a3810;
+
+    /* Mana colors */
+    --mana-white: #f8f6d8;
+    --mana-blue: #486878;
+    --mana-black: #000000;
+    --mana-red: #d3202a;
+    --mana-green: #00733e;
+}
+
+/* White Mana Theme - Plains */
+[data-theme="white"] {
+    --bg-primary: #f5f0e6;
+    --bg-secondary: #ebe4d6;
+    --bg-tertiary: #d9d0be;
+    --text-primary: #2c2416;
+    --text-secondary: #5c5040;
+    --accent: #c9a227;
+    --accent-hover: #ddb82e;
+    --accent-glow: rgba(201, 162, 39, 0.3);
+    --user-bubble: #c9a227;
+    --bot-bubble: #ddd5c4;
+    --border-color: #c4b89c;
+    --input-bg: #e8e0ce;
+}
+
+/* Blue Mana Theme - Islands */
+[data-theme="blue"] {
+    --bg-primary: #0a1929;
+    --bg-secondary: #0d2137;
+    --bg-tertiary: #061220;
+    --text-primary: #b8d4e8;
+    --text-secondary: #6a9fc0;
+    --accent: #1e88e5;
+    --accent-hover: #42a5f5;
+    --accent-glow: rgba(30, 136, 229, 0.3);
+    --user-bubble: #1565c0;
+    --bot-bubble: #132f4c;
+    --border-color: #1e4976;
+    --input-bg: #0d2137;
+}
+
+/* Black Mana Theme - Swamps */
+[data-theme="black"] {
+    --bg-primary: #0d0d0d;
+    --bg-secondary: #1a1a1a;
+    --bg-tertiary: #050505;
+    --text-primary: #c9c9c9;
+    --text-secondary: #808080;
+    --accent: #9c27b0;
+    --accent-hover: #ba68c8;
+    --accent-glow: rgba(156, 39, 176, 0.3);
+    --user-bubble: #6a1b9a;
+    --bot-bubble: #262626;
+    --border-color: #404040;
+    --input-bg: #1a1a1a;
+}
+
+/* Red Mana Theme - Mountains */
+[data-theme="red"] {
+    --bg-primary: #1a0a08;
+    --bg-secondary: #2d1410;
+    --bg-tertiary: #0f0504;
+    --text-primary: #f5d0c9;
+    --text-secondary: #c49085;
+    --accent: #e53935;
+    --accent-hover: #ef5350;
+    --accent-glow: rgba(229, 57, 53, 0.3);
+    --user-bubble: #c62828;
+    --bot-bubble: #3d1a16;
+    --border-color: #5c2a24;
+    --input-bg: #2d1410;
+}
+
+/* Green Mana Theme - Forests */
+[data-theme="green"] {
+    --bg-primary: #0a1a0d;
+    --bg-secondary: #122916;
+    --bg-tertiary: #050f07;
+    --text-primary: #c8e6c9;
+    --text-secondary: #81c784;
+    --accent: #43a047;
+    --accent-hover: #66bb6a;
+    --accent-glow: rgba(67, 160, 71, 0.3);
+    --user-bubble: #2e7d32;
+    --bot-bubble: #1b3d1e;
+    --border-color: #2e5a31;
+    --input-bg: #122916;
+}
+
+.theme-transitioning,
+.theme-transitioning *,
+.theme-transitioning *::before,
+.theme-transitioning *::after {
+    transition:
+        background-color 0.4s ease,
+        border-color 0.4s ease,
+        color 0.4s ease,
+        box-shadow 0.4s ease !important;
+}
+
+body {
+    font-family:
+        -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+        Arial, sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+}
+
+/* MTG Card Back texture overlay - subtle noise pattern */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.06;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* Vignette effect - mimics the dark border of the card back */
+/* DISABLED FOR TESTING
+body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9998;
+    background: radial-gradient(
+        ellipse at center,
+        transparent 50%,
+        rgba(48, 24, 0, 0.3) 80%,
+        rgba(0, 0, 0, 0.5) 100%
+    );
+}
+*/
+
+#root {
+    height: 100vh;
+    display: flex;
+}

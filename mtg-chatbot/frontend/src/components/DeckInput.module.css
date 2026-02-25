@@ -1,0 +1,184 @@
+.container {
+    padding: 1rem 2rem 1.5rem;
+    background-color: var(--bg-primary);
+    border-top: 2px solid var(--border-color);
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--accent);
+    font-family: "Beleren", "Plantin", serif;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.deckSection {
+    max-width: 900px;
+    margin: 0 auto 1rem;
+}
+
+.label {
+    display: block;
+    font-family: "Plantin", "Georgia", serif;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.deckTextarea {
+    width: 100%;
+    background: linear-gradient(
+        135deg,
+        var(--input-bg) 0%,
+        var(--bg-tertiary) 100%
+    );
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1rem;
+    color: var(--text-primary);
+    font-family: "SF Mono", "Consolas", monospace;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    resize: none;
+    min-height: 200px;
+    max-height: 400px;
+    transition: all 0.2s;
+}
+
+.deckTextarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 15px var(--accent-glow);
+}
+
+.deckTextarea::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.6;
+}
+
+.deckTextarea:disabled {
+    opacity: 0.6;
+}
+
+.deckFooter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.5rem;
+    padding: 0 0.25rem;
+}
+
+.cardCount {
+    font-family: "Plantin", "Georgia", serif;
+    font-size: 0.75rem;
+    color: var(--accent);
+}
+
+.formatHint {
+    font-family: "Plantin", "Georgia", serif;
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    opacity: 0.7;
+}
+
+.messageSection {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.messageWrapper {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.messageInput {
+    flex: 1;
+    background: linear-gradient(
+        135deg,
+        var(--input-bg) 0%,
+        var(--bg-tertiary) 100%
+    );
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+}
+
+.messageInput:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 15px var(--accent-glow);
+}
+
+.messageInput::placeholder {
+    color: var(--text-secondary);
+}
+
+.messageInput:disabled {
+    opacity: 0.6;
+}
+
+.submitButton {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--user-bubble);
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+    cursor: pointer;
+    color: var(--text-primary);
+    padding: 0.75rem 1.25rem;
+    font-family: "Beleren", "Plantin", serif;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    flex-shrink: 0;
+}
+
+.submitButton:hover:not(:disabled) {
+    background: var(--accent);
+    box-shadow: 0 2px 12px var(--accent-glow);
+}
+
+.submitButton:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.hint {
+    max-width: 900px;
+    margin: 0.75rem auto 0;
+    font-family: "Plantin", "Georgia", serif;
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    opacity: 0.7;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0.75rem 1rem 1rem;
+    }
+
+    .messageWrapper {
+        flex-direction: column;
+    }
+
+    .messageInput {
+        width: 100%;
+    }
+
+    .submitButton {
+        width: 100%;
+        justify-content: center;
+    }
+}

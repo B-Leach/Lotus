@@ -1,0 +1,266 @@
+.message {
+    display: flex;
+    padding: 1.25rem 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+    width: 100%;
+    animation: messageSlideIn 0.3s ease-out;
+}
+
+@keyframes messageSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* User messages: right-aligned */
+.message.user {
+    justify-content: flex-end;
+}
+
+.message.user .content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.message.user .text {
+    text-align: right;
+}
+
+.message.assistant {
+    background-color: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+    border-top: 1px solid var(--border-color);
+}
+
+.content {
+    max-width: 80%;
+    min-width: 0;
+    overflow-wrap: break-word;
+}
+
+.footer {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+}
+
+.time {
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+}
+
+.actions {
+    display: flex;
+    gap: 0.25rem;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.message:hover .actions {
+    opacity: 1;
+}
+
+.actionButton {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition:
+        color 0.2s,
+        background-color 0.2s;
+    width: 24px;
+    height: 24px;
+}
+
+.actionButton:hover:not(:disabled) {
+    color: var(--accent-hover);
+    background-color: var(--bg-tertiary);
+}
+
+.actionButton:disabled {
+    cursor: default;
+}
+
+.actionButton.copied {
+    color: var(--mana-green);
+}
+
+.actionButton.reactionActive {
+    color: var(--accent);
+    background-color: var(--bg-tertiary);
+}
+
+.text {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.text p {
+    margin-bottom: 0.75rem;
+}
+
+.text p:last-child {
+    margin-bottom: 0;
+}
+
+/* Preserve newlines in user messages */
+.userText {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.text code {
+    background-color: var(--bg-tertiary);
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-family: "Fira Code", "Consolas", monospace;
+    border: 1px solid var(--border-color);
+}
+
+.text pre {
+    background-color: var(--bg-tertiary);
+    padding: 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 1rem 0;
+    border: 1px solid var(--border-color);
+}
+
+.text pre code {
+    background: none;
+    padding: 0;
+    border: none;
+}
+
+.text ul,
+.text ol {
+    margin: 0.75rem 0;
+    padding-left: 1.5rem;
+}
+
+.text li {
+    margin-bottom: 0.25rem;
+}
+
+.text strong {
+    font-weight: 600;
+}
+
+.cursor {
+    display: inline-block;
+    animation: blink 1s step-end infinite;
+    color: var(--accent);
+    margin-left: 2px;
+}
+
+@keyframes blink {
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+}
+
+/* User message actions */
+.userActions {
+    display: flex;
+    gap: 0.25rem;
+    margin-top: 0.5rem;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.message.user:hover .userActions {
+    opacity: 1;
+}
+
+/* Edit mode styles */
+.editContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.editTextarea {
+    width: 100%;
+    min-height: 60px;
+    padding: 0.75rem;
+    background: var(--input-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    font-family: inherit;
+    line-height: 1.5;
+    resize: none;
+    outline: none;
+}
+
+.editTextarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 10px var(--accent-glow);
+}
+
+.editActions {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+}
+
+.editCancelButton,
+.editSubmitButton {
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.editCancelButton {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+}
+
+.editCancelButton:hover {
+    border-color: var(--text-secondary);
+    color: var(--text-primary);
+}
+
+.editSubmitButton {
+    background: var(--accent);
+    border: 1px solid var(--accent);
+    color: var(--bg-primary);
+    font-weight: 500;
+}
+
+.editSubmitButton:hover:not(:disabled) {
+    background: var(--accent-hover);
+    box-shadow: 0 2px 8px var(--accent-glow);
+}
+
+.editSubmitButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
