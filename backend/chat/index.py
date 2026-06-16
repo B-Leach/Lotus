@@ -14,7 +14,7 @@ import logging
 import os
 import re
 
-from bedrock_client import stream_bedrock_response
+from bedrock_client import SCRYFALL_TOOLS, stream_bedrock_response
 from conversation_store import ConversationStore
 from deck_parser import (
     calculate_deck_budget,
@@ -392,32 +392,20 @@ async def chat(request: ChatRequest):
 
     system_prompt = get_system_prompt(mode="chat")
 
-    # Extract card names and commander from user message, fetch from Scryfall
-    card_names = extract_card_names(request.message)
-    commander_name = extract_commander(request.message)
-    card_context = fetch_card_context(card_names, commander_name)
-
-    # Log what we extracted for debugging
-    logger.info(f"Extracted commander: {commander_name}")
-    logger.info(f"Extracted card names: {card_names}")
-    logger.info(f"Card context length: {len(card_context)} chars")
-
     # Build messages for Bedrock's Messages API
+    # Claude now has Scryfall tools and can look up cards autonomously
     messages = []
     for msg in request.conversationHistory:
         messages.append({"role": msg.role, "content": msg.content})
 
-    # Prepend card context to the user's message so it's seen first
-    user_message = request.message
-    if card_context:
-        user_message = card_context + "\n\n" + request.message
-
-    messages.append({"role": "user", "content": user_message})
+    messages.append({"role": "user", "content": request.message})
 
     async def generate():
         full_response = ""
         try:
-            for chunk in stream_bedrock_response(system_prompt, messages):
+            for chunk in stream_bedrock_response(
+                system_prompt, messages, tools=SCRYFALL_TOOLS
+            ):
                 full_response += chunk
                 yield chunk
         except Exception as e:

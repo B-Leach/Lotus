@@ -49,7 +49,7 @@ Lambda (Python 3.12, FastAPI)             │
 ## Project structure
 
 ```
-mtg-chatbot/
+.
 ├── frontend/      # React + Vite single-page app
 ├── backend/       # FastAPI app (runs on Lambda)
 │   └── chat/      # routes, Bedrock client, Scryfall client, deck parser, DynamoDB store
