@@ -21,6 +21,8 @@ venv/
 .env.local
 .env.production
 .env.*.local
+.env.*
+!.env.example
 
 # IDE
 .idea/
@@ -33,5 +35,9 @@ venv/
 .DS_Store
 Thumbs.db
 
-# Claude Code
+# AI / editor tooling
 .claude/
+.cursor/
+.specstory/
+CLAUDE.md
+CLAUDE_MEMORY.md
