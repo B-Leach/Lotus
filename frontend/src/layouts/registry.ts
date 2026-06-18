@@ -13,7 +13,6 @@ export interface LayoutEntry {
   component: ComponentType<LayoutProps>;
 }
 
-// D/E/F are appended in their respective tasks.
 export const LAYOUTS: LayoutEntry[] = [
   { id: "classic", name: "Classic", component: ClassicLayout },
   { id: "d", name: "Hand of cards", component: CardsLayout },
@@ -23,7 +22,9 @@ export const LAYOUTS: LayoutEntry[] = [
 
 export const DEFAULT_LAYOUT: LayoutId = "classic";
 
-export const LAYOUT_IDS: LayoutId[] = ["classic", "d", "e", "f"];
+// Single source of truth — derived from LAYOUTS so new layouts can't be
+// silently rejected by the ?layout= / localStorage validation.
+export const LAYOUT_IDS: LayoutId[] = LAYOUTS.map((l) => l.id);
 
 export function getLayout(id: string | null): LayoutEntry {
   return LAYOUTS.find((l) => l.id === id) ?? LAYOUTS[0];
