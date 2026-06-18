@@ -2,6 +2,7 @@ import type { ComponentType } from "react";
 import type { LayoutProps } from "./types";
 import { ClassicLayout } from "./classic/ClassicLayout";
 import { CardsLayout } from "./d-cards/CardsLayout";
+import { TavernLayout } from "./e-tavern/TavernLayout";
 
 export type LayoutId = "classic" | "d" | "e" | "f";
 
@@ -15,6 +16,7 @@ export interface LayoutEntry {
 export const LAYOUTS: LayoutEntry[] = [
   { id: "classic", name: "Classic", component: ClassicLayout },
   { id: "d", name: "Hand of cards", component: CardsLayout },
+  { id: "e", name: "Tavern keeper", component: TavernLayout },
 ];
 
 export const DEFAULT_LAYOUT: LayoutId = "classic";
