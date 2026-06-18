@@ -1,9 +1,11 @@
 import { useChat } from "./hooks/useChat";
-import { ClassicLayout } from "./layouts/classic/ClassicLayout";
+import { useLayoutSelection } from "./layouts/useLayoutSelection";
 
 function App() {
   const chat = useChat();
-  return <ClassicLayout chat={chat} />;
+  const { entry } = useLayoutSelection();
+  const Layout = entry.component;
+  return <Layout chat={chat} />;
 }
 
 export default App;
