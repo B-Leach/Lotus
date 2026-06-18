@@ -3,6 +3,7 @@ import type { LayoutProps } from "./types";
 import { ClassicLayout } from "./classic/ClassicLayout";
 import { CardsLayout } from "./d-cards/CardsLayout";
 import { TavernLayout } from "./e-tavern/TavernLayout";
+import { OrreryLayout } from "./f-orrery/OrreryLayout";
 
 export type LayoutId = "classic" | "d" | "e" | "f";
 
@@ -17,6 +18,7 @@ export const LAYOUTS: LayoutEntry[] = [
   { id: "classic", name: "Classic", component: ClassicLayout },
   { id: "d", name: "Hand of cards", component: CardsLayout },
   { id: "e", name: "Tavern keeper", component: TavernLayout },
+  { id: "f", name: "Mana orrery", component: OrreryLayout },
 ];
 
 export const DEFAULT_LAYOUT: LayoutId = "classic";
