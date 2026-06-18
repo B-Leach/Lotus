@@ -46,7 +46,7 @@ export function AetherLayout({ chat }: LayoutProps) {
           aria-label="New conversation"
           title="New conversation"
         >
-          ✦
+          <span className={styles.railLogoMark} aria-hidden="true" />
         </button>
         <button
           className={styles.railBtn}

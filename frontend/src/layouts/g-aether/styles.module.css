@@ -7,6 +7,10 @@
   border: 0.5px solid #e2dacb;
   border-radius: 16px;
   padding: 10px 12px 10px 16px;
+  transition: border-color 0.15s;
+}
+.composer:focus-within {
+  border-color: var(--ax, #9a7b3d);
 }
 .composerInput {
   flex: 1;
@@ -51,8 +55,8 @@
 .rail {
   width: 56px;
   flex-shrink: 0;
-  background: #efe9dd;
-  border-right: 0.5px solid #e2dacb;
+  background: color-mix(in srgb, var(--ax, #9a7b3d) 9%, #efe9dd);
+  border-right: 0.5px solid color-mix(in srgb, var(--ax, #9a7b3d) 22%, #e2dacb);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -63,14 +67,19 @@
   width: 30px;
   height: 30px;
   border-radius: 9px;
-  background: #1c1a16;
-  color: #f6f3ec;
+  background: var(--ax, #9a7b3d);
   border: none;
   cursor: pointer;
-  font-size: 15px;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.railLogoMark {
+  width: 19px;
+  height: 19px;
+  background-color: #fff;
+  -webkit-mask: url("/logo.png") center / contain no-repeat;
+  mask: url("/logo.png") center / contain no-repeat;
 }
 .railBtn {
   width: 34px;
@@ -133,8 +142,9 @@
 
 .userRow { display: flex; justify-content: flex-end; }
 .userPill {
-  background: #1c1a16;
-  color: #f6f3ec;
+  background: color-mix(in srgb, var(--ax, #9a7b3d) 16%, #ffffff);
+  color: #1c1a16;
+  border: 0.5px solid color-mix(in srgb, var(--ax, #9a7b3d) 38%, transparent);
   font-size: 15px;
   line-height: 1.6;
   padding: 10px 16px;
@@ -268,8 +278,8 @@
   align-items: center;
   gap: 6px;
   justify-content: center;
-  background: #1c1a16;
-  color: #f6f3ec;
+  background: var(--ax, #9a7b3d);
+  color: #fff;
   border: none;
   border-radius: 10px;
   padding: 9px;
