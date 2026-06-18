@@ -1,6 +1,4 @@
 import React, { useState, useRef, useCallback, useEffect } from "react";
-import type { ReactNode } from "react";
-import ReactMarkdown from "react-markdown";
 import {
   Copy,
   Check,
@@ -10,57 +8,9 @@ import {
   RefreshCw,
   Pencil,
 } from "lucide-react";
-import { CardTooltip } from "./CardTooltip";
+import { MessageBody } from "./MessageBody";
 import type { Message } from "../types";
 import styles from "./ChatMessage.module.css";
-
-// Convert [[card name]] syntax to CardTooltip components
-function parseCardLinks(content: string): ReactNode[] {
-  const parts: ReactNode[] = [];
-  const regex = /\[\[([^\]]+)\]\]/g;
-  let lastIndex = 0;
-  let match;
-
-  while ((match = regex.exec(content)) !== null) {
-    // Add text before the match
-    if (match.index > lastIndex) {
-      parts.push(content.slice(lastIndex, match.index));
-    }
-    // Add the card tooltip
-    parts.push(<CardTooltip key={match.index} cardName={match[1]} />);
-    lastIndex = regex.lastIndex;
-  }
-
-  // Add remaining text
-  if (lastIndex < content.length) {
-    parts.push(content.slice(lastIndex));
-  }
-
-  return parts;
-}
-
-// Recursively process children to find and replace [[card name]] in text
-function parseCardLinksInChildren(children: ReactNode): ReactNode {
-  return React.Children.map(children, (child) => {
-    if (typeof child === "string") {
-      // Check if the string contains [[...]]
-      if (child.includes("[[")) {
-        return <>{parseCardLinks(child)}</>;
-      }
-      return child;
-    }
-    if (
-      React.isValidElement<{ children?: ReactNode }>(child) &&
-      child.props.children
-    ) {
-      // Recursively process children of elements
-      return React.cloneElement(child, {
-        children: parseCardLinksInChildren(child.props.children),
-      });
-    }
-    return child;
-  });
-}
 
 function getRelativeTime(date: Date): string {
   const now = new Date();
@@ -238,19 +188,7 @@ export function ChatMessage({
               <p className={styles.userText}>{message.content}</p>
             )
           ) : (
-            <ReactMarkdown
-              components={{
-                // Parse [[card name]] in text nodes
-                p: ({ children }) => (
-                  <p>{parseCardLinksInChildren(children)}</p>
-                ),
-                li: ({ children }) => (
-                  <li>{parseCardLinksInChildren(children)}</li>
-                ),
-              }}
-            >
-              {message.content}
-            </ReactMarkdown>
+            <MessageBody content={message.content} />
           )}
         </div>
         {isUser && !isEditing && (
