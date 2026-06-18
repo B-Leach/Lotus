@@ -13,6 +13,19 @@ export function accentFor(theme: Theme): string {
   return ACCENTS[theme] ?? ACCENTS.default;
 }
 
+const DARK_ACCENTS: Record<Theme, string> = {
+  default: "#e0b85c",
+  white: "#e8dca0",
+  blue: "#4aa8e0",
+  black: "#a98fd6",
+  red: "#ef6a62",
+  green: "#54e0c7",
+};
+
+export function accentForDark(theme: Theme): string {
+  return DARK_ACCENTS[theme] ?? DARK_ACCENTS.default;
+}
+
 export const MANA_DOTS: { theme: Theme; label: string }[] = [
   { theme: "default", label: "Magic" },
   { theme: "white", label: "Plains" },
