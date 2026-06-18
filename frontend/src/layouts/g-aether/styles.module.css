@@ -1,0 +1,37 @@
+.composer {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  background: #ffffff;
+  border: 0.5px solid #e2dacb;
+  border-radius: 16px;
+  padding: 10px 12px 10px 16px;
+}
+.composerInput {
+  flex: 1;
+  resize: none;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #1c1a16;
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  max-height: 200px;
+}
+.composerInput::placeholder { color: #a89e8a; }
+.sendBtn {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  background: var(--ax, #9a7b3d);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.15s;
+}
+.sendBtn:disabled { opacity: 0.4; cursor: default; }
