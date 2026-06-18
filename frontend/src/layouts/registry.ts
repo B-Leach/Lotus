@@ -6,7 +6,7 @@ import { TavernLayout } from "./e-tavern/TavernLayout";
 import { OrreryLayout } from "./f-orrery/OrreryLayout";
 import { AetherLayout } from "./g-aether/AetherLayout";
 
-export type LayoutId = "classic" | "d" | "e" | "f" | "g";
+export type LayoutId = "aether" | "d" | "e" | "f" | "g";
 
 export interface LayoutEntry {
   id: LayoutId;
@@ -15,14 +15,14 @@ export interface LayoutEntry {
 }
 
 export const LAYOUTS: LayoutEntry[] = [
-  { id: "classic", name: "Classic", component: ClassicLayout },
+  { id: "aether", name: "Aether", component: AetherLayout },
   { id: "d", name: "Hand of cards", component: CardsLayout },
   { id: "e", name: "Tavern keeper", component: TavernLayout },
   { id: "f", name: "Mana orrery", component: OrreryLayout },
-  { id: "g", name: "Aether", component: AetherLayout },
+  { id: "g", name: "Classic", component: ClassicLayout },
 ];
 
-export const DEFAULT_LAYOUT: LayoutId = "classic";
+export const DEFAULT_LAYOUT: LayoutId = "aether";
 
 // Single source of truth — derived from LAYOUTS so new layouts can't be
 // silently rejected by the ?layout= / localStorage validation.
