@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import type { CSSProperties } from "react";
-import { Plus, Search, Clock, X, RefreshCw } from "lucide-react";
+import { Plus, Clock, X, RefreshCw } from "lucide-react";
 import { MessageBody } from "../../components/MessageBody";
 import { StreamingMessage } from "../../components/StreamingMessage";
 import { AetherComposer } from "./AetherComposer";
@@ -47,14 +47,6 @@ export function AetherLayout({ chat }: LayoutProps) {
           title="New conversation"
         >
           ✦
-        </button>
-        <button
-          className={styles.railBtn}
-          aria-label="Search"
-          title="Search"
-          onClick={() => setHistoryOpen(true)}
-        >
-          <Search size={18} />
         </button>
         <button
           className={styles.railBtn}
@@ -152,10 +144,20 @@ export function AetherLayout({ chat }: LayoutProps) {
 
       {historyOpen && (
         <div className={styles.panelOverlay} onClick={() => setHistoryOpen(false)}>
-          <aside className={styles.panel} onClick={(e) => e.stopPropagation()}>
+          <aside
+              className={styles.panel}
+              onClick={(e) => e.stopPropagation()}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="aether-panel-heading"
+            >
             <div className={styles.panelHead}>
-              <span>Conversations</span>
-              <button onClick={() => setHistoryOpen(false)} aria-label="Close conversations">
+              <span id="aether-panel-heading">Conversations</span>
+              <button
+                onClick={() => setHistoryOpen(false)}
+                aria-label="Close conversations"
+                autoFocus
+              >
                 <X size={16} />
               </button>
             </div>

@@ -1,3 +1,4 @@
+/* AetherComposer styles */
 .composer {
   display: flex;
   align-items: flex-end;
@@ -36,6 +37,7 @@
 }
 .sendBtn:disabled { opacity: 0.4; cursor: default; }
 
+/* AetherLayout styles */
 .root {
   position: relative;
   display: flex;
@@ -178,7 +180,7 @@
   margin: 0 0 0.85em;
 }
 .text a { color: var(--ax, #9a7b3d); }
-.text span > strong {
+.text [data-card-link] strong {
   font-weight: 500;
   color: #1c1a16;
   border-bottom: 1.5px solid var(--ax, #9a7b3d);
@@ -201,7 +203,8 @@
   opacity: 0;
   transition: opacity 0.15s;
 }
-.botRow:hover .ghostBtn { opacity: 1; }
+.botRow:hover .ghostBtn,
+.botRow:focus-within .ghostBtn { opacity: 1; }
 .ghostBtn:hover { color: #1c1a16; border-color: var(--ax, #9a7b3d); }
 
 .thinking { color: #a89e8a; font-size: 14px; padding-left: 22px; }

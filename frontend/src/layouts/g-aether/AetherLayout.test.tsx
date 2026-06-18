@@ -41,4 +41,22 @@ describe("AetherLayout", () => {
     unmount();
     expect(document.body.classList.contains("aether")).toBe(false);
   });
+
+  it("closes the history panel on Escape", async () => {
+    const user = userEvent.setup();
+    const chat = makeChatStub();
+    render(<AetherLayout chat={chat} />);
+    await user.click(screen.getByLabelText("History"));
+    expect(screen.getByText("Conversations")).toBeInTheDocument();
+    await user.keyboard("{Escape}");
+    expect(screen.queryByText("Conversations")).not.toBeInTheDocument();
+  });
+
+  it("shows the welcome state when there are no messages", () => {
+    const chat = makeChatStub();
+    chat.activeConversation!.messages = [];
+    chat.conversations[0].messages = [];
+    render(<AetherLayout chat={chat} />);
+    expect(screen.getByText("Ask me anything")).toBeInTheDocument();
+  });
 });
