@@ -4,8 +4,9 @@ import { ClassicLayout } from "./classic/ClassicLayout";
 import { CardsLayout } from "./d-cards/CardsLayout";
 import { TavernLayout } from "./e-tavern/TavernLayout";
 import { OrreryLayout } from "./f-orrery/OrreryLayout";
+import { AetherLayout } from "./g-aether/AetherLayout";
 
-export type LayoutId = "classic" | "d" | "e" | "f";
+export type LayoutId = "classic" | "d" | "e" | "f" | "g";
 
 export interface LayoutEntry {
   id: LayoutId;
@@ -18,6 +19,7 @@ export const LAYOUTS: LayoutEntry[] = [
   { id: "d", name: "Hand of cards", component: CardsLayout },
   { id: "e", name: "Tavern keeper", component: TavernLayout },
   { id: "f", name: "Mana orrery", component: OrreryLayout },
+  { id: "g", name: "Aether", component: AetherLayout },
 ];
 
 export const DEFAULT_LAYOUT: LayoutId = "classic";
