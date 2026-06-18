@@ -184,6 +184,7 @@ export function CardTooltip({ cardName }: CardTooltipProps) {
     <span
       ref={containerRef}
       className={styles.container}
+      data-card-link=""
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
