@@ -1,6 +1,7 @@
 import type { ComponentType } from "react";
 import type { LayoutProps } from "./types";
 import { ClassicLayout } from "./classic/ClassicLayout";
+import { CardsLayout } from "./d-cards/CardsLayout";
 
 export type LayoutId = "classic" | "d" | "e" | "f";
 
@@ -13,6 +14,7 @@ export interface LayoutEntry {
 // D/E/F are appended in their respective tasks.
 export const LAYOUTS: LayoutEntry[] = [
   { id: "classic", name: "Classic", component: ClassicLayout },
+  { id: "d", name: "Hand of cards", component: CardsLayout },
 ];
 
 export const DEFAULT_LAYOUT: LayoutId = "classic";
