@@ -4,6 +4,7 @@
   width: 100%;
   background: var(--bg-tertiary);
   color: var(--text-primary);
+  position: relative;
 }
 .library {
   width: 64px;
@@ -67,7 +68,7 @@
   padding: 6px 10px; cursor: pointer; font-size: 13px;
 }
 .cardBtn:hover { color: var(--text-primary); border-color: var(--accent); }
-.drawing, .inputDock { padding-left: 24px; }
+.inputDock { padding-left: 24px; }
 .drawing { color: var(--text-secondary); font-style: italic; padding: 8px 24px; }
 .inputDock { border-top: 1px solid var(--border-color); background: var(--bg-secondary); }
 .overlay {

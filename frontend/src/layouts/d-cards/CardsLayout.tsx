@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Plus, RefreshCw, Maximize2, X } from "lucide-react";
 import { MessageBody } from "../../components/MessageBody";
 import { ChatInput } from "../../components/ChatInput";
@@ -38,14 +38,15 @@ function CardMessage({
         </header>
         <div className={styles.cardArt} aria-hidden="true" />
         <div className={styles.cardText}>
+          {/* Preview truncates raw source; markdown may be cut mid-construct (acceptable — full text is in the overlay). */}
           <MessageBody
             content={long ? message.content.slice(0, PREVIEW_LEN) + "…" : message.content}
           />
         </div>
         <footer className={styles.cardFooter}>
           {long && (
-            <button className={styles.cardBtn} onClick={() => onExpand(message)}>
-              <Maximize2 size={14} /> Read
+            <button className={styles.cardBtn} onClick={() => onExpand(message)} aria-label="Read full response">
+              <Maximize2 size={14} aria-hidden="true" /> Read
             </button>
           )}
           {isLast && onRegenerate && (
@@ -62,6 +63,15 @@ function CardMessage({
 export function CardsLayout({ chat }: LayoutProps) {
   const [expanded, setExpanded] = useState<Message | null>(null);
   const messages = chat.activeConversation?.messages ?? [];
+
+  useEffect(() => {
+    if (!expanded) return;
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setExpanded(null);
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [expanded]);
   const lastId = messages[messages.length - 1]?.id;
 
   return (
@@ -130,8 +140,8 @@ export function CardsLayout({ chat }: LayoutProps) {
       {expanded && (
         <div className={styles.overlay} onClick={() => setExpanded(null)}>
           <div className={styles.expandedCard} onClick={(e) => e.stopPropagation()}>
-            <button className={styles.overlayClose} onClick={() => setExpanded(null)}>
-              <X size={18} />
+            <button className={styles.overlayClose} onClick={() => setExpanded(null)} aria-label="Close">
+              <X size={18} aria-hidden="true" />
             </button>
             <MessageBody content={expanded.content} />
           </div>
