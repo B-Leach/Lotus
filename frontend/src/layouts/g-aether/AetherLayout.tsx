@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import type { CSSProperties } from "react";
-import { Plus, Clock, X, RefreshCw } from "lucide-react";
+import { Plus, Clock, X, RefreshCw, Sun, Moon } from "lucide-react";
 import { MessageBody } from "../../components/MessageBody";
 import { StreamingMessage } from "../../components/StreamingMessage";
 import { AetherComposer } from "./AetherComposer";
-import { accentFor, MANA_DOTS } from "./accent";
+import { accentFor, accentForDark, MANA_DOTS } from "./accent";
 import type { LayoutProps } from "../types";
 import styles from "./styles.module.css";
 
@@ -14,8 +14,16 @@ const EXAMPLES = [
   "Is Sol Ring worth it in every deck?",
 ];
 
+const MODE_KEY = "lotus-aether-mode";
+type AetherMode = "light" | "dark";
+
+function loadMode(): AetherMode {
+  return localStorage.getItem(MODE_KEY) === "dark" ? "dark" : "light";
+}
+
 export function AetherLayout({ chat }: LayoutProps) {
   const [historyOpen, setHistoryOpen] = useState(false);
+  const [mode, setMode] = useState<AetherMode>(() => loadMode());
   const messages = chat.activeConversation?.messages ?? [];
   const lastId = messages[messages.length - 1]?.id;
 
@@ -35,10 +43,22 @@ export function AetherLayout({ chat }: LayoutProps) {
     return () => window.removeEventListener("keydown", h);
   }, [historyOpen]);
 
-  const rootStyle = { ["--ax"]: accentFor(chat.theme) } as CSSProperties;
+  const toggleMode = () => {
+    setMode((prev) => {
+      const next: AetherMode = prev === "dark" ? "light" : "dark";
+      localStorage.setItem(MODE_KEY, next);
+      return next;
+    });
+  };
+
+  const accent = mode === "dark" ? accentForDark(chat.theme) : accentFor(chat.theme);
+  const rootStyle = { ["--ax"]: accent } as CSSProperties;
 
   return (
-    <div className={styles.root} style={rootStyle}>
+    <div
+      className={`${styles.root} ${mode === "dark" ? styles.dark : ""}`}
+      style={rootStyle}
+    >
       <nav className={styles.rail}>
         <button
           className={styles.railLogo}
@@ -61,20 +81,31 @@ export function AetherLayout({ chat }: LayoutProps) {
       <main className={styles.main}>
         <header className={styles.header}>
           <span className={styles.wordmark}>Lotus</span>
-          <div className={styles.manaDots} role="group" aria-label="Mana themes">
-            {MANA_DOTS.map((m) => {
-              const c = accentFor(m.theme);
-              return (
-                <button
-                  key={m.theme}
-                  className={`${styles.manaDot} ${chat.theme === m.theme ? styles.manaDotActive : ""}`}
-                  style={{ background: c, color: c }}
-                  onClick={() => chat.setTheme(m.theme)}
-                  aria-label={`${m.label} theme`}
-                  title={m.label}
-                />
-              );
-            })}
+          <div className={styles.headerRight}>
+            <div className={styles.manaDots} role="group" aria-label="Mana themes">
+              {MANA_DOTS.map((m) => {
+                const c = mode === "dark" ? accentForDark(m.theme) : accentFor(m.theme);
+                return (
+                  <button
+                    key={m.theme}
+                    className={`${styles.manaDot} ${chat.theme === m.theme ? styles.manaDotActive : ""}`}
+                    style={{ background: c, color: c }}
+                    onClick={() => chat.setTheme(m.theme)}
+                    aria-label={`${m.label} theme`}
+                    title={m.label}
+                  />
+                );
+              })}
+            </div>
+            <span className={styles.divider} aria-hidden="true" />
+            <button
+              className={styles.modeToggle}
+              onClick={toggleMode}
+              aria-label={mode === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+              title={mode === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+            >
+              {mode === "dark" ? <Sun size={16} /> : <Moon size={16} />}
+            </button>
           </div>
         </header>
 

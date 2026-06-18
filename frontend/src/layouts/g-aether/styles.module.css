@@ -127,6 +127,22 @@
   opacity: 1;
   box-shadow: 0 0 0 2px #f6f3ec, 0 0 0 3px currentColor;
 }
+.headerRight { display: flex; align-items: center; gap: 12px; }
+.divider { width: 1px; height: 16px; background: #e2dacb; }
+.modeToggle {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: transparent;
+  border: 0.5px solid #e2dacb;
+  color: #a89e8a;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s, background 0.15s, border-color 0.15s;
+}
+.modeToggle:hover { color: #1c1a16; background: #ffffff; }
 
 .column { flex: 1; overflow-y: auto; display: flex; flex-direction: column; }
 

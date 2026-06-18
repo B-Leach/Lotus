@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { AetherLayout } from "./AetherLayout";
@@ -7,6 +7,10 @@ import { makeChatStub } from "../../test/chatStub";
 const PLACEHOLDER = "Ask anything, or paste a deck list…";
 
 describe("AetherLayout", () => {
+  beforeEach(() => {
+    localStorage.clear();
+  });
+
   it("renders assistant text and the user message", () => {
     render(<AetherLayout chat={makeChatStub()} />);
     expect(screen.getByText("Hi")).toBeInTheDocument();
@@ -58,5 +62,13 @@ describe("AetherLayout", () => {
     chat.conversations[0].messages = [];
     render(<AetherLayout chat={chat} />);
     expect(screen.getByText("Ask me anything")).toBeInTheDocument();
+  });
+
+  it("toggles light/dark mode and persists the choice", async () => {
+    const chat = makeChatStub();
+    render(<AetherLayout chat={chat} />);
+    await userEvent.click(screen.getByLabelText("Switch to dark mode"));
+    expect(localStorage.getItem("lotus-aether-mode")).toBe("dark");
+    expect(screen.getByLabelText("Switch to light mode")).toBeInTheDocument();
   });
 });
